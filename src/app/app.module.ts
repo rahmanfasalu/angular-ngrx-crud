@@ -3,7 +3,7 @@ import { NgModule } from "@angular/core";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { ProductListComponent } from "./product-list/product-list.component";
+import { PRODUCT_LIST_COMPONENTS } from "./product-list";
 import { ProductEditComponent } from "./product-edit/product-edit.component";
 import { MenuComponent } from "./shared/menu.component";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
@@ -16,10 +16,11 @@ import { environment } from "../environments/environment";
 import { ProductEffects } from "./state/effects/product.effect";
 import { CoreModule } from "./core/core.module";
 import { reducers } from "./state";
+import { ProductListComponent } from "./product-list/product-list.component";
 @NgModule({
   declarations: [
     AppComponent,
-    ProductListComponent,
+    ...PRODUCT_LIST_COMPONENTS,
     ProductEditComponent,
     MenuComponent,
     AboutUsComponent,

@@ -1,4 +1,5 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
+import { AuthorEntities } from "../interfaces/products";
 
 import * as AppState from "./app.state";
 import {
@@ -6,19 +7,23 @@ import {
   categoryReducer,
 } from "./reducer/product.category.reducer";
 
+import { authorsReducer } from "./reducer/product.author.reducer";
+
 export const reducers = {
   categories: categoryReducer,
+  authors: authorsReducer,
 };
 
 export interface ProductsModuleState {
   categories: CategoryState;
+  authors: AuthorEntities;
 }
 
 // Extends the app state to include the product feature.
 // This is required because products are lazy loaded.
 // So the reference to ProductState cannot be added to app.state.ts directly.
 export interface State extends AppState.State {
-  productModule: ProductsModuleState;
+  products: ProductsModuleState;
 }
 
 // Selector functions
@@ -26,7 +31,14 @@ const getProductFeatureState = createFeatureSelector<ProductsModuleState>(
   "products"
 );
 
+// Category slice
 export const selectAllCategories = createSelector(
   getProductFeatureState,
   (state: ProductsModuleState) => state.categories
+);
+
+// Authors slice
+export const selectAllAuthors = createSelector(
+  getProductFeatureState,
+  (state: ProductsModuleState) => state.authors
 );

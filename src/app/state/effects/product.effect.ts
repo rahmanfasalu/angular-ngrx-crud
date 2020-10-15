@@ -4,10 +4,10 @@ import { of } from "rxjs";
 
 /* NgRx */
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { JsonPipe } from "@angular/common";
 import { ProductService } from "../../services/product.service";
-import { CategoryActions, ProductApiActions } from "../actions";
+import { AuthorActions, CategoryActions, ProductApiActions } from "../actions";
 import { Category } from "src/app/interfaces/products";
+import { normalizeAuthorsData } from "../schema/author.schema";
 
 @Injectable()
 export class ProductEffects {
@@ -26,6 +26,22 @@ export class ProductEffects {
               categories: categories,
             });
           }),
+          catchError((error) =>
+            of(ProductApiActions.loadProductsFailure({ error }))
+          )
+        )
+      )
+    );
+  });
+
+  loadAuthors$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(AuthorActions.loadAuthors),
+      mergeMap(() =>
+        this.productService.getAuthors().pipe(
+          map((authors) =>
+            AuthorActions.loadAuthorsSuccess(normalizeAuthorsData(authors))
+          ),
           catchError((error) =>
             of(ProductApiActions.loadProductsFailure({ error }))
           )

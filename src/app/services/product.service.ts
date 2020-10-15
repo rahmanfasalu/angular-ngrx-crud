@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable, throwError } from "rxjs";
 import { catchError, tap, map } from "rxjs/operators";
-import { Category } from "../interfaces/products";
+import { Author, Category } from "../interfaces/products";
 import { PRODUCTS_CONST } from "../constants/products";
 
 @Injectable({
@@ -17,6 +17,14 @@ export class ProductService {
     let url = this.baseUrl + PRODUCTS_CONST.API.categoryUrl;
     return this.http.get<Category[]>(url).pipe(
       //tap((data) => console.log(JSON.stringify(data))),
+      catchError(this.handleError)
+    );
+  }
+
+  getAuthors(): Observable<Author[]> {
+    let url = this.baseUrl + PRODUCTS_CONST.API.authorsUrl;
+    return this.http.get<Author[]>(url).pipe(
+      // tap((data) => console.log(JSON.stringify(data))),
       catchError(this.handleError)
     );
   }
