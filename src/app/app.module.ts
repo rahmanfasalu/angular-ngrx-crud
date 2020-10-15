@@ -3,7 +3,7 @@ import { NgModule } from "@angular/core";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { PRODUCT_LIST_COMPONENTS } from "./product-list";
-import { ProductEditComponent } from "./product-edit/product-edit.component";
+import { PRODUCT_EDIT_COMPONENTS } from "./product-edit";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { AboutUsComponent } from "./about-us/about-us/about-us.component";
 import { StoreModule } from "@ngrx/store";
@@ -16,14 +16,15 @@ import { reducers } from "./state";
 
 import { SHARED_COMPONENTS } from "./shared/components";
 import { SHARED_PIPES } from "./shared/pipes";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
     AppComponent,
     ...PRODUCT_LIST_COMPONENTS,
+    ...PRODUCT_EDIT_COMPONENTS,
     ...SHARED_COMPONENTS,
     ...SHARED_PIPES,
-    ProductEditComponent,
     AboutUsComponent,
   ],
   imports: [
@@ -31,6 +32,8 @@ import { SHARED_PIPES } from "./shared/pipes";
     AppRoutingModule,
     NgbModule,
     CoreModule,
+    FormsModule,
+    ReactiveFormsModule,
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),
     StoreModule.forFeature("products", reducers),

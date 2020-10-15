@@ -10,9 +10,11 @@
   <div
     class="row video-item"
     *ngFor="let key of objectKeys(videos)"
-    routerLink="/edit/1"
+    (click)="gotEditVideo($event, key)"
   >
-    <div class="col-md-2">{{ videos[key].name }}</div>
+    <div class="col-md-2">
+      {{ videos[key].name }}
+    </div>
     <div class="col-md-2">{{ getAuthorName(videos[key].author) }}</div>
     <div class="col-md-2">
       <span *ngFor="let cat of videos[key].catIds; let last = last">
@@ -24,8 +26,20 @@
     <div class="col-md-2">{{ videos[key].releaseDate }}</div>
 
     <div class="col-md-2">
-      <button type="button" class="btn btn-primary">Edit</button>
-      <button type="button" class="btn btn-danger">Delete</button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="gotEditVideo($event, key)"
+      >
+        Edit
+      </button>
+      <button
+        type="button"
+        class="btn btn-danger"
+        (click)="deleteVideo($event, key)"
+      >
+        Delete
+      </button>
     </div>
   </div>
 </div>

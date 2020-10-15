@@ -49,4 +49,20 @@ export class ProductEffects {
       )
     );
   });
+
+  updateAuthors$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(AuthorActions.updateAuthorVideos),
+      mergeMap((action) =>
+        this.productService.updateAuthorVideo(action.author).pipe(
+          map((author) =>
+            AuthorActions.updateAuthorVideosSuccess({ author: author })
+          ),
+          catchError((error) =>
+            of(ProductApiActions.loadProductsFailure({ error }))
+          )
+        )
+      )
+    );
+  });
 }

@@ -1,0 +1,14 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <app-product-edit
+        [categories]="categories?.entities"
+        [authors]="authors?.entities?.authors"
+        [selected]="selected"
+        [videos]="authors?.entities?.videos"
+        (update)="updateProduct($any($event))"
+      >
+      </app-product-edit>
+    </div>
+  </div>
+</div>

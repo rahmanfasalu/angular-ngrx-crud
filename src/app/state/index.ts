@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { AuthorEntities } from "../interfaces/products";
+import { AuthorEntities, Video } from "../interfaces/products";
 
 import * as AppState from "./app.state";
 import {
@@ -41,4 +41,15 @@ export const selectAllCategories = createSelector(
 export const selectAllAuthors = createSelector(
   getProductFeatureState,
   (state: ProductsModuleState) => state.authors
+);
+
+// Authors slice
+export const selectCurrentVideo = createSelector(
+  getProductFeatureState,
+  (state: ProductsModuleState, { id }: { id: number }): Video => {
+    if (state?.authors?.entities?.videos) {
+      return state?.authors?.entities?.videos[`${id}`];
+    }
+    return null;
+  }
 );

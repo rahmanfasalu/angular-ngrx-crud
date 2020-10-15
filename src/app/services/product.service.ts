@@ -23,8 +23,13 @@ export class ProductService {
 
   getAuthors(): Observable<Author[]> {
     let url = this.baseUrl + PRODUCTS_CONST.API.authorsUrl;
-    return this.http.get<Author[]>(url).pipe(
-      // tap((data) => console.log(JSON.stringify(data))),
+    return this.http.get<Author[]>(url).pipe(catchError(this.handleError));
+  }
+
+  updateAuthorVideo(author: Author): Observable<Author> {
+    let url = this.baseUrl + PRODUCTS_CONST.API.authorsUrl + "/" + author.id;
+    return this.http.put<Author>(url, JSON.stringify(author)).pipe(
+      tap((data) => console.log(JSON.stringify(data))),
       catchError(this.handleError)
     );
   }

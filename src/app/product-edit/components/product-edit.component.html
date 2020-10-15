@@ -1,0 +1,58 @@
+<div class="card">
+  <h4 class="card-header">{{ title }}</h4>
+  <div class="card-body">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="videoName">Video Name</label>
+        <input
+          type="text"
+          formControlName="videoName"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.videoName.errors }"
+        />
+        <div *ngIf="submitted && f.videoName.errors" class="invalid-feedback">
+          <div *ngIf="f.videoName.errors.required">Video Name is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="videoAuthor">Video Author:</label>
+        <select formControlName="videoAuthor" class="form-control">
+          <!-- <option *ngFor="let web of websiteList">{{ web }}</option> -->
+          <option value="">Select author</option>
+          <option *ngFor="let key of objectKeys(authors)" [value]="key">
+            {{ authors[key].name }}
+          </option>
+        </select>
+        <div
+          *ngIf="f.videoAuthor.touched && f.videoAuthor.invalid"
+          class="invalid-feedback"
+        >
+          <div *ngIf="f.videoAuthor.errors.required">Author is required.</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="videoCategories">Video Category:</label>
+        <select formControlName="videoCategories" class="form-control" multiple>
+          <option *ngFor="let key of objectKeys(categories)" [value]="key">
+            {{ categories[key].name }}
+          </option>
+        </select>
+        <div
+          *ngIf="f.videoCategories.touched && f.videoCategories.invalid"
+          class="invalid-feedback"
+        >
+          <div *ngIf="f.videoCategories.errors.required">
+            Category is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <button class="btn btn-primary">Add New Video</button>
+        <a routerLink="/list" class="btn btn-link">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>

@@ -24,7 +24,8 @@ export interface Video {
 export interface Author {
   id: number;
   name: string;
-  videos: number[];
+  videos: number[] | Video[];
+  videosList?: Video[];
 }
 
 export type AuthorEntityType = {

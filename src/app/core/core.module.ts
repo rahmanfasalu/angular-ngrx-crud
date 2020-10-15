@@ -6,13 +6,14 @@ import { environment } from "../../environments/environment";
 import { throwIfAlreadyLoaded } from "./module-import-guard";
 
 import { ErrorInterceptor, JwtInterceptor } from "./interceptors";
+import { BrowserModule } from "@angular/platform-browser";
 
 const INTERCEPTORS = [
   { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 ];
 
-const IMPORT_MODULES: any[] = [HttpClientModule];
+const IMPORT_MODULES: any[] = [HttpClientModule, BrowserModule];
 
 let PRODUCTION_ONLY_PROVIDER: any[] = [];
 if (environment.production) {

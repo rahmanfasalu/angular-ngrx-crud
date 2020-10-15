@@ -5,7 +5,7 @@ import { AuthorActions, CategoryActions } from "../state/actions";
 import { CategoryState } from "../state/reducer/product.category.reducer";
 
 import { State, selectAllCategories, selectAllAuthors } from "../state";
-import { AuthorEntities } from "../interfaces/products";
+import { Author, AuthorEntities, Video } from "../interfaces/products";
 @Component({
   selector: "app-product-shell-list",
   templateUrl: "./product-list-shell.component.html",
@@ -13,7 +13,8 @@ import { AuthorEntities } from "../interfaces/products";
 export class ProductListShellComponent implements OnInit {
   categories$: Observable<CategoryState>;
   authors$: Observable<AuthorEntities>;
-
+  authors: AuthorEntities;
+  categories: CategoryState;
   constructor(private store: Store<State>) {}
 
   ngOnInit(): void {
@@ -22,8 +23,30 @@ export class ProductListShellComponent implements OnInit {
     this.categories$ = this.store.select(selectAllCategories);
     this.authors$ = this.store.select(selectAllAuthors);
 
+    this.categories$.subscribe((data) => (this.categories = data));
+    this.authors$.subscribe((data) => {
+      this.authors = data;
+    });
+
     // dispatch action to load categories and authors.
     this.store.dispatch(CategoryActions.loadCategories());
     this.store.dispatch(AuthorActions.loadAuthors());
+  }
+
+  deleteProduct(video: Video): void {
+    const author = this.authors.entities.authors[video.author];
+    const updatedVideoList = author.videosList.filter(function (item: Video) {
+      return item.id != video.id;
+    });
+
+    const updatedObject: Author = {
+      id: author.id,
+      name: author.name,
+      videos: updatedVideoList,
+    };
+
+    this.store.dispatch(
+      AuthorActions.updateAuthorVideos({ author: updatedObject })
+    );
   }
 }
