@@ -1,0 +1,18 @@
+.video-list {
+  .list-head {
+    padding: 10px 0;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
+  }
+  .video-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .video-item:nth-child(even) {
+    background: #f0f0f0;
+  }
+  .btn {
+    margin-right: 3px;
+  }
+}

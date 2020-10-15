@@ -1,1 +1,31 @@
-<p>pddsdsds</p>
+<div class="container-fluid video-list">
+  <div class="row list-head">
+    <div class="col-md-2">Video name</div>
+    <div class="col-md-2">Author</div>
+    <div class="col-md-2">Category name</div>
+    <div class="col-md-2">Highest quality format</div>
+    <div class="col-md-2">Release Date</div>
+    <div class="col-md-2">Options</div>
+  </div>
+  <div
+    class="row video-item"
+    *ngFor="let key of objectKeys(videos)"
+    routerLink="/edit/1"
+  >
+    <div class="col-md-2">{{ videos[key].name }}</div>
+    <div class="col-md-2">{{ getAuthorName(videos[key].author) }}</div>
+    <div class="col-md-2">
+      <span *ngFor="let cat of videos[key].catIds; let last = last">
+        {{ getCategoryName(cat) }}
+        <span *ngIf="!last">,</span>
+      </span>
+    </div>
+    <div class="col-md-2">{{ videos[key].formats | fileterVideoQuality }}</div>
+    <div class="col-md-2">{{ videos[key].releaseDate }}</div>
+
+    <div class="col-md-2">
+      <button type="button" class="btn btn-primary">Edit</button>
+      <button type="button" class="btn btn-danger">Delete</button>
+    </div>
+  </div>
+</div>

@@ -20,4 +20,25 @@ export class ProductListComponent implements OnInit {
     this.videos = this.authorEntity?.entities?.videos;
     this.authors = this.authorEntity?.entities.authors;
   }
+
+  objectKeys(obj: any) {
+    if (!!obj) {
+      return Object.keys(obj);
+    }
+    return [];
+  }
+
+  getAuthorName(id: number) {
+    if (!!this.authors) {
+      return this.authors[id].name;
+    }
+    return "";
+  }
+
+  getCategoryName(cat: number) {
+    if (!!this.categories) {
+      return this.categories.entities[cat]?.name;
+    }
+    return "";
+  }
 }
